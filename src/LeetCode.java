@@ -1,5 +1,6 @@
 import Algorithms.Algorithms;
 import Algorithms.Array.FirstNonRepeatingInteger;
+import Algorithms.Array.MaxInSlidingWindow;
 import Algorithms.Array.RemoveEven;
 import Algorithms.BinaryTree.*;
 import Algorithms.HashTables.*;
@@ -16,7 +17,7 @@ public class LeetCode {
     public static void main(String[] args) {
         System.out.println("June 2022 MAAG");
         Algorithms runClass;
-        runClass = new MaximumSubArray();
+        runClass = new MaxInSlidingWindow();
         runClass.run();
     }
 }
