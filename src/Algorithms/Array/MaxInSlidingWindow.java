@@ -31,7 +31,7 @@ public class MaxInSlidingWindow extends Algorithms {
         int left = 0;
         int right = window - 1;
         int maxIndex = this.findMaxIndex(arr, left, right);
-        int[] maxInWindow = new int[length - (window - 1)];
+        int[] maxInWindow = new int[(length - window) + 1];
         int maxWindowIndex = 0;
         maxInWindow[maxWindowIndex] = arr[maxIndex];
         left += 1;
@@ -79,14 +79,14 @@ public class MaxInSlidingWindow extends Algorithms {
         }
         // Add the max element in the window to the result
         result[resultIndex] = maxPQ.peek();
-        // Remove the first element from the maxPQ
-        maxPQ.remove(arr[0]);
         // Slide the window one at a time and calculate the max in that window
         for (int i = window; i < length; i++) {
+            // Remove the element from the maxPQ out of the window
+            maxPQ.remove(arr[i - window]);
+            // Add new element
             maxPQ.add(arr[i]);
             // Add the max element in the window to the result
             result[++resultIndex] = maxPQ.peek();
-            maxPQ.remove(arr[i - window + 1]);
         }
         return result;
     }
@@ -101,13 +101,14 @@ public class MaxInSlidingWindow extends Algorithms {
         int resultIndex = -1;
         int[] result = new int[length - (window - 1)];
         Deque<Integer> dQueue = new ArrayDeque<>();
-        for (int i = 0; i < window; ++i) {
+
+        for (int i = 0; i < window; i++) {
             // remove the elements at the end which are less than the element being added
             while (!dQueue.isEmpty() && arr[dQueue.peekLast()] <= arr[i]) dQueue.removeLast();
             // Add the element to the end
             dQueue.addLast(i);
         }
-        for (int i =  window; i < length; ++i) {
+        for (int i =  window; i < length; i++) {
             result[++resultIndex] = arr[dQueue.peek()];
             // remove the index out of the current window
             while (!dQueue.isEmpty() && dQueue.peekFirst() <= i - window) dQueue.removeFirst();
