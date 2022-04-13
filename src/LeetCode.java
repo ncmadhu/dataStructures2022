@@ -15,7 +15,7 @@ public class LeetCode {
     public static void main(String[] args) {
         System.out.println("June 2022 MAAG");
         Algorithms runClass;
-        runClass = new MoveZeroesToTheFront();
+        runClass = new MergeOverlappingIntervals();
         runClass.run();
     }
 }

@@ -17,9 +17,10 @@ public class MoveZeroesToTheFront extends Algorithms {
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i++) {
             System.out.println("Input: " + Arrays.toString(input[i]));
-            //this.moveZeroes(input[i]);
-            this.moveZeroesOptimum(input[i]);
-            System.out.println("Output: " + Arrays.toString(input[i]));
+            this.moveZeroesLeft(input[i]);
+            System.out.println("Zeroes Left: " + Arrays.toString(input[i]));
+            this.moveZeroesRight(input[i]);
+            System.out.println("Zeroes Right: " + Arrays.toString(input[i]));
         }
     }
 
@@ -39,7 +40,7 @@ public class MoveZeroesToTheFront extends Algorithms {
             }
         }
     }
-    private void moveZeroesOptimum(int[] arr) {
+    private void moveZeroesLeft(int[] arr) {
         int length =  arr.length;
         if (length == 0) return;
         int read, write;
@@ -53,6 +54,24 @@ public class MoveZeroesToTheFront extends Algorithms {
         }
         for (int i = 0; i <= write; i++) {
             arr[i] = 0;
+        }
+    }
+
+    private void moveZeroesRight(int[] arr) {
+        int length = arr.length;
+        if (length == 0) return;
+        int read, write;
+        read = write = 0;
+        while (read < length) {
+            if (arr[read] != 0) {
+                arr[write] = arr[read];
+                write++;
+            }
+            read++;
+        }
+        while (write < length) {
+            arr[write] = 0;
+            write++;
         }
     }
 }
