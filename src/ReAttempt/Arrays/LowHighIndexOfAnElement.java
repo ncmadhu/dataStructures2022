@@ -20,8 +20,10 @@ public class LowHighIndexOfAnElement extends Problem {
             System.out.println("Target: " + input[i + 1][0]);
             System.out.println("Low Index: " + this.findLowIndex(input[i], input[i + 1][0]));
             System.out.println("Low Index (Binary Search): " + this.findLowIndexOptimum(input[i], input[i + 1][0]));
+            System.out.println("Low Index (Re Attempt): " + this.reAttemptLowIndex(input[i], input[i + 1][0]));
             System.out.println("High Index: " + this.findHighIndex(input[i], input[i + 1][0]));
             System.out.println("High Index (Binary Search): " + this.findHighIndexOptimum(input[i], input[i + 1][0]));
+            System.out.println("High Index (Re Attempt): " + this.reAttemptHighIndex(input[i], input[i + 1][0]));
         }
     }
 
@@ -64,37 +66,35 @@ public class LowHighIndexOfAnElement extends Problem {
         return -1;
     }
 
-    private int findLowIndexOptimum(int[] arr, int target) {
+    private int reAttemptLowIndex(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
-        int start, mid, end;
-        start = 0;
-        end = length - 1;
+        int start = 0;
+        int end = length - 1;
         while (start <= end) {
-            mid = start + (end - start) / 2;
-            if (arr[mid] <  target) start = mid + 1;
+            int mid = start + (end - start) / 2;
+            if (arr[mid] < target) start = mid + 1;
             else end = mid - 1;
         }
-        if (start < length && arr[start] == target) return start;
+        if (start < arr.length && arr[start] == target) return start;
         return -1;
     }
 
-    private int findHighIndexOptimum(int[] arr, int target) {
+    private int reAttemptHighIndex(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
-        int start, mid, end;
-        start = 0;
-        end = length - 1;
+        int start = 0;
+        int end = length -1;
         while (start <= end) {
-            mid = start + (end - start) / 2;
+            int mid = start + (end - start) / 2;
             if (arr[mid] <= target) start = mid + 1;
             else end = mid - 1;
         }
-        if (arr[end] < arr.length && arr[end] == target) return end;
+        if (end >= 0 && arr[end] == target) return end;
         return -1;
     }
 
-    private int findLowIndexOptimumO(int[] arr, int target) {
+    private int findLowIndexOptimum(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
         int start, mid, end;
@@ -110,7 +110,7 @@ public class LowHighIndexOfAnElement extends Problem {
 
     }
 
-    private int findHighIndexOptimumO(int[] arr, int target) {
+    private int findHighIndexOptimum(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
         int start, mid, end;

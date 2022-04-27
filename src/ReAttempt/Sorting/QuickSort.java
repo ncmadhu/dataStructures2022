@@ -16,9 +16,43 @@ public class QuickSort extends Problem {
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i++) {
             System.out.println("Input: " + Arrays.toString(input[i]));
-            this.quickSort(input[i]);
+            //this.quickSort(input[i]);
+            this.reAttempt(input[i]);
             System.out.println("Output: " + Arrays.toString(input[i]));
         }
+    }
+
+    private void reAttempt(int[] arr) {
+        this.reAttempt(arr, 0, arr.length - 1);
+    }
+
+    private void reAttempt(int[] arr, int low, int high) {
+        if (low < high) {
+            int pivot = this.reAttemptPartition(arr, low, high);
+            this.reAttempt(arr, low, pivot - 1);
+            this.reAttempt(arr, pivot + 1, high);
+        }
+    }
+
+    private int reAttemptPartition(int[] arr, int low, int high) {
+        int pivotValue = arr[low];
+        int left = low;
+        int right = high;
+        while (left < right) {
+            while (left <= high && arr[left] <= pivotValue) left++;
+            while (arr[right] > pivotValue) right--;
+            if (left < right) {
+                int temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+            }
+        }
+        // pivot --- lesser --- right --- greater --- left --- end
+        // At this point arr[right] is <= pivotValue and arr[left] > pivotValue. Hence the swap
+        // right --- lesser --- pivot --- greater --- left --- end
+        arr[low] = arr[right];
+        arr[right] = pivotValue;
+        return right;
     }
 
     private void quickSort(int[] arr) {
@@ -59,7 +93,7 @@ public class QuickSort extends Problem {
             }
         }
         //Above while loop would have stopped when the arr[right] <= pivotValue and left has crossed over right
-        //and stopped at an element lesser than pivotValue
+        //and stopped at an element greater than pivotValue
         //Move pivot to the middle position such that left of pivot is lesser and right of pivot is greater
         arr[low] = arr[right];
         arr[right] = pivotValue;

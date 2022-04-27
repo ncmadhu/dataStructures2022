@@ -8,23 +8,41 @@ public class ProductOfAllExceptItself extends Problem {
     @Override
     public void run() {
         System.out.println("Running Product of All Except Itself");
-        int[] nums;
-        nums =  new int[]{0,1,2};
-        System.out.println("Input: " + Arrays.toString(nums));
-        System.out.println("Output Brute Force: " + Arrays.toString(this.findProductBF(nums)));
-        System.out.println("Output: " + Arrays.toString(this.findProduct(nums)));
-        nums =  new int[]{0,1,2,0};
-        System.out.println("Input: " + Arrays.toString(nums));
-        System.out.println("Output Brute Force: " + Arrays.toString(this.findProductBF(nums)));
-        System.out.println("Output: " + Arrays.toString(this.findProduct(nums)));
-        nums =  new int[]{1,2,3,4};
-        System.out.println("Input: " + Arrays.toString(nums));
-        System.out.println("Output Brute Force: " + Arrays.toString(this.findProductBF(nums)));
-        System.out.println("Output: " + Arrays.toString(this.findProduct(nums)));
-        nums =  new int[]{2,5,9,3,6};
-        System.out.println("Input: " + Arrays.toString(nums));
-        System.out.println("Output Brute Force: " + Arrays.toString(this.findProductBF(nums)));
-        System.out.println("Output: " + Arrays.toString(this.findProduct(nums)));
+        int[][] input = new int[][]{{0, 1, 2}, {0, 1, 2, 0}, {1, 2, 3, 4}, {2, 5, 9, 3, 6}};
+        this.execute(input);
+    }
+
+    private void execute(int[][] input) {
+        for (int i = 0; i < input.length; i++) {
+            System.out.println("Input: " + Arrays.toString(input[i]));
+            //System.out.println("Output Brute Force: " + Arrays.toString(this.findProductBF(input[i])));
+            System.out.println("Output: " + Arrays.toString(this.findProduct(input[i])));
+            System.out.println("Output: " + Arrays.toString(this.reAttempt(input[i])));
+        }
+    }
+
+    private int[] reAttempt(int[] nums) {
+        int length = nums.length;
+        int[] product = new int[length];
+        if (length == 0) return product;
+        int prod = 1;
+        int zeroCount = 0;
+        for (int i = 0; i < length; i++) {
+            if (nums[i] != 0) {
+                prod = prod * nums[i];
+            } else {
+                zeroCount += 1;
+                if (zeroCount > 1) {
+                    return product;
+                }
+            }
+        }
+        for (int i = 0; i < length; i++) {
+            if (nums[i] == 0) product[i] = prod;
+            else if (zeroCount == 1) product[i] = 0;
+            else product[i] = prod / nums[i];
+        }
+        return product;
     }
 
     private int[] findProduct(int[] nums) {
@@ -34,13 +52,14 @@ public class ProductOfAllExceptItself extends Problem {
         int prod = 1;
         int zeroCount = 0;
         for (int i = 0; i < length; i++) {
-            // More than one zero implies the product array will be zero
-            if (zeroCount > 1) return product;
+
             if (nums[i] == 0) {
                 zeroCount++;
             } else {
                 prod = prod * nums[i];
             }
+            // More than one zero implies the product array will be zero
+            if (zeroCount > 1) return product;
         }
 
         for (int i = 0; i < length; i++) {
