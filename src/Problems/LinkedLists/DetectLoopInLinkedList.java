@@ -17,7 +17,7 @@ public class DetectLoopInLinkedList extends Problem {
         System.out.print("Input: ");
         sll.printList();
         System.out.println("Loop Exists: " + this.detectLoop(sll));
-        sll.formLoop();
+        sll.formLoopToNthNode(5);
         System.out.println("Loop Exists: " + this.detectLoop(sll));
     }
 

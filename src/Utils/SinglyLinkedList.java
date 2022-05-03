@@ -111,17 +111,21 @@ public class SinglyLinkedList<T> {
     }
 
     //Form a loop
-    public void formLoop() {
+    public void formLoopToNthNode(int n) {
         if (isEmpty()) {
             return;
         }
+        int count = 0;
+        Node loopToNode = null;
         Node node = this.headNode;
-        Node prev = null;
-        while(node !=  null) {
+        Node prev=  null;
+        while(node != null) {
+            count += 1;
+            if (count == n) loopToNode = node;
             prev = node;
             node =  node.nextNode;
         }
-        prev.nextNode = this.headNode;
+        prev.nextNode = loopToNode;
     }
 
     public void printList() {

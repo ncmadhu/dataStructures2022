@@ -22,7 +22,36 @@ public class ReverseBetweenTheNodes extends Problem {
             this.reverseBetweenTheNodes(sll, input[i][0], input[i][1]);
             System.out.println("Output: ");
             sll.printList();
+            this.reAttempt(sll, input[i][0], input[i][1]);
+            System.out.println("Output (Re Attempt): ");
+            sll.printList();
         }
+    }
+
+    private void reAttempt(SinglyLinkedList<Integer> sll, int start, int end) {
+        if (sll.isEmpty()) return;
+        if (start <= 0) start = 1;
+        int count = 0;
+        SinglyLinkedList<Integer>.Node curr = sll.headNode;
+        SinglyLinkedList<Integer>.Node prev = null;
+        while (curr != null && count < start) {
+            prev = curr;
+            curr = curr.nextNode;
+            count += 1;
+        }
+        SinglyLinkedList<Integer>.Node revStartPrev = prev;
+        SinglyLinkedList<Integer>.Node revStart = curr;
+        SinglyLinkedList<Integer>.Node temp;
+        while (curr != null && count < end - 1) {
+            temp = curr.nextNode;
+            curr.nextNode = prev;
+            prev = curr;
+            curr = temp;
+            count += 1;
+        }
+        if (revStartPrev == null) sll.headNode = prev;
+        else revStartPrev.nextNode = prev;
+        revStart.nextNode = curr;
     }
 
     private void reverseBetweenTheNodes(SinglyLinkedList<Integer> sll, int start, int end) {

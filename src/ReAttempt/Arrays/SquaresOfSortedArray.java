@@ -16,7 +16,26 @@ public class SquaresOfSortedArray extends Problem {
         for (int i = 0; i < input.length; i++) {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("Output: " + Arrays.toString(this.sortedSquares(input[i])));
+            System.out.println("Output (Re Attempt): " + Arrays.toString(this.reAttempt(input[i])));
         }
+    }
+    private int[] reAttempt(int[] arr) {
+        int length = arr.length;
+        int[] squares = new int[length];
+        int left, right, index;
+        left = 0;
+        right = length - 1;
+        index = length - 1;
+        while (left < right) {
+            if (Math.abs(arr[left]) > Math.abs(arr[right])) {
+                squares[index--] = arr[left] * arr[left];
+                left++;
+            } else {
+                squares[index--] = arr[right] * arr[right];
+                right--;
+            }
+        }
+        return squares;
     }
 
     private int[] sortedSquares(int[] arr) {
