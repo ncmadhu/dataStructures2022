@@ -1,6 +1,7 @@
 import Common.Problem;
 import Problems.Array.*;
 import Problems.Array.ReArrangePosAndNeg;
+import Problems.LinkedLists.AddIntegers;
 import Problems.LinkedLists.IntersectionPoint;
 import Problems.LinkedLists.ReverseEveryKNodes;
 import Problems.LinkedLists.RotateLinkedList;
@@ -20,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("June 2022 MAAG");
         Problem problem;
-        problem = new ReverseEveryKNodes();
+        problem = new AddIntegers();
         problem.run();
     }
 }
