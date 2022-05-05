@@ -24,6 +24,9 @@ public class AddIntegers extends Problem {
             result.head = this.addIntegers(list1.head, list2.head);
             System.out.println("Sum: ");
             result.displayLinkedList();
+            result.head = this.addIntegersBS(list1.head, list2.head);
+            System.out.println("Sum (BS): ");
+            result.displayLinkedList();
         }
     }
 
@@ -60,6 +63,26 @@ public class AddIntegers extends Problem {
         if (carry == 1) {
             LinkedListNode node = new LinkedListNode(1);
             prev.next = node;
+        }
+        return resultHead;
+    }
+
+    private LinkedListNode addIntegersBS(LinkedListNode head1, LinkedListNode head2) {
+        LinkedListNode resultHead = null;
+        LinkedListNode prev = null;
+        int carry = 0;
+        while (head1 != null || head2 != null || carry > 0) {
+            int sum = carry;
+            if (head1 != null) sum = sum + head1.data;
+            if (head2 != null) sum = sum + head2.data;
+            LinkedListNode node = new LinkedListNode(sum % 10);
+            carry = sum / 10;
+            if (prev == null) resultHead = node;
+            else prev.next = node;
+            prev = node;
+
+            if (head1 != null) head1 = head1.next;
+            if (head2 != null) head2 = head2.next;
         }
         return resultHead;
     }

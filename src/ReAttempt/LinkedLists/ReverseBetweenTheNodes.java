@@ -18,12 +18,12 @@ public class ReverseBetweenTheNodes extends Problem {
             SinglyLinkedList<Integer> sll = LinkedListUtils.insertNodesNTimes(10);
             System.out.println("Input: ");
             sll.printList();
-            System.out.println("Start: " + input[i][0] + " End: " + input[i][1]);
             this.reverseBetweenTheNodes(sll, input[i][0], input[i][1]);
-            System.out.println("Output: ");
+            System.out.println("Output Between " + input[i][0] + " and " + input[i][1] + ": ");
             sll.printList();
-            this.reAttempt(sll, input[i][0], input[i][1]);
-            System.out.println("Output (Re Attempt): ");
+            sll = LinkedListUtils.insertNodesNTimes(10);
+            this.reAttemptAlt(sll, input[i][0], input[i][1]);
+            System.out.println("Output (Re Attempt) From " + input[i][0] + " To " + input[i][1] + ": ");
             sll.printList();
         }
     }
@@ -51,6 +51,33 @@ public class ReverseBetweenTheNodes extends Problem {
         }
         if (revStartPrev == null) sll.headNode = prev;
         else revStartPrev.nextNode = prev;
+        revStart.nextNode = curr;
+    }
+
+    private <T> void reAttemptAlt(SinglyLinkedList<T> sll, int start, int end) {
+        if (sll.isEmpty()) return;
+        if (start <= 0) start = 1;
+        int count = 0;
+        SinglyLinkedList<T>.Node curr, prev, revStartPrev, revStart, temp;
+        curr = sll.headNode;
+        revStartPrev = prev = null;
+        while (curr != null && count < start - 1) {
+            count++;
+            prev = curr;
+            curr = curr.nextNode;
+        }
+        revStartPrev = prev;
+        revStart = curr;
+        while (curr != null && count < end) {
+            temp = curr.nextNode;
+            curr.nextNode = prev;
+            prev = curr;
+            curr = temp;
+            count++;
+        }
+
+        if (revStartPrev != null) revStartPrev.nextNode = prev;
+        else sll.headNode = prev;
         revStart.nextNode = curr;
     }
 
