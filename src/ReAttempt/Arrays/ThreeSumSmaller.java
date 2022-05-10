@@ -2,7 +2,9 @@ package ReAttempt.Arrays;
 
 import Common.Problem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ThreeSumSmaller extends Problem {
     @Override
@@ -17,6 +19,36 @@ public class ThreeSumSmaller extends Problem {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("Target: " + input[i+1][0]);
             System.out.println("Triplets less than target: " + this.threeSumSmaller(input[i], input[i+1][0]));
+            System.out.println("Triplets less than target: " + this.tripletSmaller(input[i], input[i+1][0]));
+        }
+    }
+
+    private List<List<Integer>> tripletSmaller(int[] arr, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        int length = arr.length;
+        if (length < 3) return result;
+        Arrays.sort(arr);
+        for (int i = 0; i < length - 2; i++) {
+            this.doubleSmaller(arr, i + 1, target - arr[i], result);
+        }
+        return result;
+    }
+
+    private void doubleSmaller(int[] arr, int start, int rem, List<List<Integer>> result) {
+        int left = start;
+        int right = arr.length - 1;
+        while (left < right) {
+            if (arr[left] + arr[right] >= rem) right--;
+            else {
+                for (int i = right; i > left; i--) {
+                    List<Integer> subList = new ArrayList<>();
+                    subList.add(arr[start-1]);
+                    subList.add(arr[left]);
+                    subList.add(arr[i]);
+                    result.add(subList);
+                }
+                left++;
+            }
         }
     }
 

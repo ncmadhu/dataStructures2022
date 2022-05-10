@@ -21,8 +21,37 @@ public class RemoveNthNodeFromEnd extends Problem {
             nthDeleted = removeNthFromEndAlt(head,input[i+1][0]);
             System.out.print("Output: ");
             ListNode.printList(nthDeleted);
+            head = ListNode.generateList(input[i]);
+            nthDeleted = reAttempt(head,input[i+1][0]);
+            System.out.print("Output (Re Attempt): ");
+            ListNode.printList(nthDeleted);
         }
     }
+
+    private ListNode reAttempt(ListNode head, int n) {
+        if (head == null) return head;
+        ListNode curr, prev, temp;
+        int count, size;
+        count = size = 0;
+        curr = head;
+        while (curr != null) {
+            size++;
+            curr = curr.next;
+        }
+        if (size < n) return head;
+        int nodeDeleted = size - n;
+        curr = head;
+        prev = null;
+        while (count < nodeDeleted && curr != null) {
+            prev = curr;
+            curr = curr.next;
+            count++;
+        }
+        if (prev == null) head = curr.next;
+        else prev.next = curr.next;
+        return head;
+    }
+
     private ListNode removeNthFromEnd(ListNode head, int n) {
         if (head == null) return head;
         int size = 0;

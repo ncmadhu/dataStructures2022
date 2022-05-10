@@ -21,8 +21,31 @@ public class SubArrayProductLessThanK extends Problem {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("K: " + input[i+1][0]);
             System.out.println("Sub Array Less Than K: " + this.findSubArraysLessThanK(input[i], input[i+1][0]));
-            System.out.println("Sub Array Less Than K (Alternate): " + this.findSubArraysAlt(input[i], input[i+1][0]));
+            System.out.println("Sub Array Less Than K (BS): " + this.findSubArraysAlt(input[i], input[i+1][0]));
+            System.out.println("Sub Array Less Than K (Re Attempt): " + this.reAttempt(input[i], input[i+1][0]));
         }
+    }
+
+    private List<List<Integer>> reAttempt(int[] arr, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        int length = arr.length;
+        if (length == 0) return result;
+        int left, right;
+        left = right = 0;
+        int prod = 1;
+        while (right < length) {
+            prod *= arr[right];
+            while (left < length && prod >= k) {
+                prod /= arr[left++];
+            }
+            List<Integer> subList = new LinkedList<>();
+            for (int i = right; i >= left; i--) {
+                subList.add(0, arr[i]);
+                result.add(new ArrayList<>(subList));
+            }
+            right++;
+        }
+        return result;
     }
 
     private List<List<Integer>> findSubArraysLessThanK(int[] arr, int k) {
@@ -71,8 +94,12 @@ public class SubArrayProductLessThanK extends Problem {
             while (prod >= k && left < length) {
                 prod /= arr[left++];
             }
+            //Initialize a new list
             List<Integer> subList = new LinkedList<>();
             for (int i = right; i >= left; i--) {
+                // Add the curr right to the list and add to the result
+                // In subsequent iterations add elements left to the right
+                // until the curr left position is reached
                 subList.add(0, arr[i]);
                 result.add(new ArrayList<>(subList));
             }

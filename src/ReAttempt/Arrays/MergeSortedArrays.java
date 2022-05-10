@@ -8,72 +8,44 @@ public class MergeSortedArrays extends Problem {
     @Override
     public void run() {
         System.out.println("Running Merge Sorted Array");
-        int m, n;
-        int[] nums1, nums2, merged;
+        int[][] input = new int[][]{{1, 3, 5}, {2, 4, 6},
+                                    {1}, {},
+                                    {}, {1},
+                                    {0, 1}, {0,0},
+                                    {1,2,3}, {4,5,6},
+                                    {1,1,1},{2,2,2}};
+        this.execute(input);
+    }
 
-        nums1 = new int[]{1,2,3};
-        nums2 = new int[]{2,5,6};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
+    private void execute(int[][] input) {
+        for (int i = 0; i < input.length; i = i + 2) {
+            int[] nums1, nums2, merged;
+            nums1 = input[i].clone();
+            nums2 = input[i+1].clone();
+            System.out.println(("Array 1: " + Arrays.toString(nums1)));
+            System.out.println(("Array 2: " + Arrays.toString(nums2)));
+            merged = this.merge(nums1, nums2);
+            System.out.println(("Merged: " + Arrays.toString(merged)));
+            nums1 = input[i].clone();
+            nums2 = input[i+1].clone();
+            merged = this.reAttempt(nums1, nums2);
+            System.out.println(("Merged (Re Attempt): " + Arrays.toString(merged)));
+        }
+    }
 
-        nums1 = new int[]{1};
-        nums2 = new int[]{};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{0};
-        nums2 = new int[]{1};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{0,0,0,1,3,5};
-        nums2 = new int[]{1,3,5};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{4,5,6};
-        nums2 = new int[]{1,2,3};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{1,1,1};
-        nums2 = new int[]{2,2,2};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{2,2,2};
-        nums2 = new int[]{1,1,1};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{1,1,1};
-        nums2 = new int[]{1,1,1};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
-        nums1 = new int[]{};
-        nums2 = new int[]{1,2,3,4,5,6};
-        System.out.println(("Input 1: " + Arrays.toString(nums1)));
-        System.out.println(("Input 2: " + Arrays.toString(nums2)));
-        merged  = this.merge(nums1, nums2);
-        System.out.println(("Output: " + Arrays.toString(merged)));
-
+    private int[] reAttempt(int[] nums1, int[] nums2) {
+        int n1Len = nums1.length;
+        int n2Len = nums2.length;
+        int[] merged = new int[n1Len+n2Len];
+        int n1, n2, m;
+        n1 = n2 = m = 0;
+        while (n1 < n1Len && n2 < n2Len) {
+            if (nums1[n1] < nums2[n2]) merged[m++] = nums1[n1++];
+            else merged[m++] = nums2[n2++];
+        }
+        while (n1 < n1Len) merged[m++] = nums1[n1++];
+        while (n2 < n2Len) merged[m++] = nums2[n2++];
+        return merged;
     }
 
     private int[] merge(int[] arr1, int[] arr2) {
