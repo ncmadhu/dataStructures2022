@@ -17,7 +17,41 @@ public class ThreeSumCloser extends Problem {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("Target: " + input[i+1][0]);
             System.out.println("Sum Closer: " + this.searchTripletSumCloser(input[i], input[i+1][0]));
+            System.out.println("Sum Closer (Re Attempt): " + this.reAttempt(input[i], input[i+1][0]));
         }
+    }
+    private int reAttempt(int[] arr, int target) {
+        int closerSum = 0;
+        int length = arr.length;
+        if (length < 3) return closerSum;
+        int minDiff = Integer.MAX_VALUE;
+        Arrays.sort(arr);
+        for (int i = 0; i < length - 2; i++) {
+            int rem = target - arr[i];
+            int twoSum = this.reAttemptTwoSum(arr, i+1, rem);
+            int currDiff = rem - twoSum;
+            if (currDiff == 0) return target;
+            if (Math.abs(currDiff) < Math.abs(minDiff)) {
+                minDiff = currDiff;
+                closerSum = arr[i] + twoSum;
+            }
+        }
+        return closerSum;
+    }
+
+    private int reAttemptTwoSum(int[] arr, int start, int rem) {
+        int left, right;
+        left = start;
+        right = arr.length - 1;
+        int sum = 0;
+        while (left < right) {
+            sum = arr[left] + arr[right];
+            if (sum == rem) return sum;
+            if (sum > rem) right--;
+            else left++;
+        }
+        return sum;
+
     }
 
     private int searchTripletSumCloser(int[] arr, int target) {

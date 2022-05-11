@@ -18,10 +18,8 @@ public class LowHighIndexOfAnElement extends Problem {
         for (int i = 0; i < input.length; i = i + 2) {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("Target: " + input[i + 1][0]);
-            System.out.println("Low Index: " + this.findLowIndex(input[i], input[i + 1][0]));
             System.out.println("Low Index (Binary Search): " + this.findLowIndexOptimum(input[i], input[i + 1][0]));
             System.out.println("Low Index (Re Attempt): " + this.reAttemptLowIndex(input[i], input[i + 1][0]));
-            System.out.println("High Index: " + this.findHighIndex(input[i], input[i + 1][0]));
             System.out.println("High Index (Binary Search): " + this.findHighIndexOptimum(input[i], input[i + 1][0]));
             System.out.println("High Index (Re Attempt): " + this.reAttemptHighIndex(input[i], input[i + 1][0]));
         }
@@ -69,24 +67,26 @@ public class LowHighIndexOfAnElement extends Problem {
     private int reAttemptLowIndex(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
-        int start = 0;
-        int end = length - 1;
+        int start, mid, end;
+        start = 0;
+        end = length - 1;
         while (start <= end) {
-            int mid = start + (end - start) / 2;
+            mid = start + (end - start) / 2;
             if (arr[mid] < target) start = mid + 1;
             else end = mid - 1;
         }
-        if (start < arr.length && arr[start] == target) return start;
-        return -1;
+        if (start < length && arr[start] == target) return start;
+        return - 1;
     }
 
     private int reAttemptHighIndex(int[] arr, int target) {
         int length = arr.length;
         if (length == 0) return -1;
-        int start = 0;
-        int end = length -1;
+        int start, mid, end;
+        start = 0;
+        end = length - 1;
         while (start <= end) {
-            int mid = start + (end - start) / 2;
+            mid = start + (end - start) / 2;
             if (arr[mid] <= target) start = mid + 1;
             else end = mid - 1;
         }

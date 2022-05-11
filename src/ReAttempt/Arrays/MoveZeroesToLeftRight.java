@@ -16,12 +16,43 @@ public class MoveZeroesToLeftRight extends Problem {
 
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i++) {
+            int[] arr;
             System.out.println("Input: " + Arrays.toString(input[i]));
-            this.moveZeroesLeft(input[i]);
-            System.out.println("Zeroes Left: " + Arrays.toString(input[i]));
-            this.moveZeroesRight(input[i]);
-            System.out.println("Zeroes Right: " + Arrays.toString(input[i]));
+            arr = input[i].clone();
+            this.moveZeroesLeft(arr);
+            System.out.println("Zeroes Left: " + Arrays.toString(arr));
+            this.reAttemptMoveLeft(arr);
+            System.out.println("Zeroes Left (Re Attempt): " + Arrays.toString(arr));
+            arr = input[i].clone();
+            this.moveZeroesRight(arr);
+            System.out.println("Zeroes Right: " + Arrays.toString(arr));
+            arr = input[i].clone();
+            this.reAttemptMoveRight(arr);
+            System.out.println("Zeroes Right (Re Attempt): " + Arrays.toString(arr));
         }
+    }
+    private void reAttemptMoveLeft(int[] arr) {
+        int length = arr.length;
+        if (length == 0) return;
+        int left, right;
+        left = right = length - 1;
+        while (left >= 0) {
+            if (arr[left] != 0) arr[right--] = arr[left];
+            left--;
+        }
+        while (right >= 0) arr[right--] = 0;
+    }
+
+    private void reAttemptMoveRight(int[] arr) {
+        int length = arr.length;
+        if (length == 0) return;
+        int left, right;
+        left = right = 0;
+        while (right < length) {
+            if (arr[right] != 0) arr[left++] = arr[right];
+            right++;
+        }
+        while (left < length) arr[left++] = 0;
     }
     private void moveZeroesLeft(int[] arr) {
         int length = arr.length;

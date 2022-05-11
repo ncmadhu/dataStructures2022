@@ -1,4 +1,4 @@
-package Problems.Array;
+package ReAttempt.Arrays;
 
 import Common.Problem;
 

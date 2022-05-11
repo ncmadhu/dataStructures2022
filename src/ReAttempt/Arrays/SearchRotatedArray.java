@@ -19,7 +19,8 @@ public class SearchRotatedArray extends Problem {
         for (int i = 0; i < input.length; i = i + 2) {
             System.out.println("Input: " + Arrays.toString(input[i]));
             System.out.println("Target: " + input[i+1][0]);
-            System.out.println("Output (Optimum): " + this.reAttemptBinSearchRotated(input[i], input[i+1][0]));
+            System.out.println("Output (Optimum): " + this.binarySearchRotated(input[i], input[i+1][0]));
+            System.out.println("Output (Re Attempt): " + this.reAttemptBinSearchRotated(input[i], input[i+1][0]));
         }
     }
 
@@ -32,19 +33,20 @@ public class SearchRotatedArray extends Problem {
         while (start <= end) {
             mid = start + (end - start) / 2;
             if (arr[mid] == target) return mid;
+            // Find which half is sorted
             if (arr[start] <= arr[mid]) {
-                // Left half is sorted
+                // Left is sorted
                 if (arr[start] <= target && target < arr[mid]) {
                     end = mid - 1;
                 } else {
                     start = mid + 1;
                 }
             } else {
-                // Right half is sorted
+                // Right is sorted
                 if (arr[mid] < target && target <= arr[end]) {
                     start = mid + 1;
                 } else {
-                    end = mid -1;
+                    end = mid - 1;
                 }
             }
         }

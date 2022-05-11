@@ -16,14 +16,20 @@ public class QuickSort extends Problem {
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i++) {
             System.out.println("Input: " + Arrays.toString(input[i]));
-            //this.quickSort(input[i]);
-            this.reAttempt(input[i]);
-            System.out.println("Output: " + Arrays.toString(input[i]));
+            int [] arr;
+            arr = input[i].clone();
+            this.quickSort(arr);
+            System.out.println("Output: " + Arrays.toString(arr));
+            arr = input[i].clone();
+            this.reAttempt(arr);
+            System.out.println("Output (Re Attempt): " + Arrays.toString(arr));
         }
     }
 
     private void reAttempt(int[] arr) {
-        this.reAttempt(arr, 0, arr.length - 1);
+        int length = arr.length;
+        if (length == 0) return;
+        this.reAttempt(arr, 0, length - 1);
     }
 
     private void reAttempt(int[] arr, int low, int high) {
@@ -35,25 +41,33 @@ public class QuickSort extends Problem {
     }
 
     private int reAttemptPartition(int[] arr, int low, int high) {
-        int pivotValue = arr[low];
-        int left = low;
-        int right = high;
+        int pivotValue = arr[low]; // Taking first element as pivot
+        int left, right;
+        left = low;
+        right = high;
         while (left < right) {
+            // Move left until an element greater than pivot value is found
             while (left <= high && arr[left] <= pivotValue) left++;
+            // Move right until an element lesser than pivot value is found
             while (arr[right] > pivotValue) right--;
+            // Check left has crossed beyond right before swap
             if (left < right) {
-                int temp = arr[left];
-                arr[left] = arr[right];
-                arr[right] = temp;
+                int temp = arr[right];
+                arr[right] = arr[left];
+                arr[left] = temp;
             }
         }
-        // pivot --- lesser --- right --- greater --- left --- end
-        // At this point arr[right] is <= pivotValue and arr[left] > pivotValue. Hence the swap
-        // right --- lesser --- pivot --- greater --- left --- end
+        // At this point left has crossed beyond right
+        // pivotValue(low) --- lesser --- right --- left --- greater --- high
         arr[low] = arr[right];
         arr[right] = pivotValue;
+        // At this point it looks as below
+        // low --- lesser --- pivotValue(right) --- greater --- high
+        // Hence return right to the left of which all values are lesser than arr[right]
+        // and all values to the right is greater than arr[right]
         return right;
     }
+
 
     private void quickSort(int[] arr) {
         // Send to the recursive function with the arr, start and end
@@ -95,8 +109,14 @@ public class QuickSort extends Problem {
         //Above while loop would have stopped when the arr[right] <= pivotValue and left has crossed over right
         //and stopped at an element greater than pivotValue
         //Move pivot to the middle position such that left of pivot is lesser and right of pivot is greater
+        // At this point left has crossed beyond right
+        // pivotValue(low) --- lesser --- right --- left --- greater --- high
         arr[low] = arr[right];
         arr[right] = pivotValue;
+        // At this point it looks as below
+        // low --- lesser --- pivotValue(right) --- greater --- high
+        // Hence return right to the left of which all values are lesser than arr[right]
+        // and all values to the right is greater than arr[right]
         return right;
     }
 
