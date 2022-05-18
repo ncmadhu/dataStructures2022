@@ -19,24 +19,33 @@ public class MergeKSortedLists extends Problem {
                                     {30, 32, 40}, {85, 90}, {30, 32, 40}};
         this.execute(input);
     }
+
+    private List<LinkedListNode> generateInput(int[][] input, int index) {
+        LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[index]);
+        System.out.println("List 1: ");
+        list1.displayLinkedList();
+        LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[index+1]);
+        System.out.println("List 2: ");
+        list2.displayLinkedList();
+        LinkedList list3 = LinkedListUtils.generateLinkedListFromArray(input[index+2]);
+        System.out.println("List 3: ");
+        list3.displayLinkedList();
+        List<LinkedListNode> lists = new ArrayList<>();
+        lists.add(list1.head);
+        lists.add(list2.head);
+        lists.add(list3.head);
+        return lists;
+    }
+
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 3) {
-            LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
-            System.out.println("List 1: ");
-            list1.displayLinkedList();
-            LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[i+1]);
-            System.out.println("List 2: ");
-            list2.displayLinkedList();
-            LinkedList list3 = LinkedListUtils.generateLinkedListFromArray(input[i+2]);
-            System.out.println("List 3: ");
-            list3.displayLinkedList();
             LinkedList merged = new LinkedList();
-            List<LinkedListNode> lists = new ArrayList<>();
-            lists.add(list1.head);
-            lists.add(list2.head);
-            lists.add(list3.head);
-            merged.head = this.mergeKSortedLists(lists);
+            merged.head = this.mergeKSortedLists(this.generateInput(input, i));
             System.out.println("Merged: ");
+            merged.displayLinkedList();
+            List<LinkedListNode> lists = this.generateInput(input, i);
+            merged.head = this.mergeTwoLinkedLists(lists.get(0), lists.get(1));
+            System.out.println("Merge Two Lists: ");
             merged.displayLinkedList();
         }
     }
@@ -59,6 +68,25 @@ public class MergeKSortedLists extends Problem {
             if (node.next != null) minHeap.add(node.next);
         }
         return resultHead;
+    }
+
+    private LinkedListNode mergeTwoLinkedLists(LinkedListNode headOne, LinkedListNode headTwo) {
+        LinkedListNode list1 = headOne;
+        LinkedListNode list2 = headTwo;
+        LinkedListNode prev = null;
+        while (list1 != null && list2 != null) {
+            if (list1.data < list2.data) {
+                prev = list1;
+                list1 = list1.next;
+            } else {
+                if (prev != null) prev.next = list2;
+                prev = list2;
+                list2 = list2.next;
+                prev.next = list1;
+            }
+        }
+        if (list1 == null) prev.next = list2;
+        return headOne.data < headTwo.data ? headOne : headTwo;
     }
 
 

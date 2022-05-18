@@ -1,21 +1,50 @@
 package Problems.String;
 
 import Common.Problem;
+import org.apache.commons.lang3.StringUtils;
 
 public class LongestPalindromicSubstring extends Problem {
     @Override
     public void run() {
         System.out.println("Running Longest Palindromic Substring");
-        String input;
-        input = "bababc";
-        System.out.println("Input: " + input);
-        System.out.println("Longest Palindromic Substring: " + this.longestPalindromicSubstring(input));
-        input = "bababcmalayalam";
-        System.out.println("Input: " + input);
-        System.out.println("Longest Palindromic Substring: " + this.longestPalindromicSubstring(input));
-        input = "aacabdkacaa";
-        System.out.println("Input: " + input);
-        System.out.println("Longest Palindromic Substring: " + this.longestPalindromicSubstring(input));
+        String[] input = {"", "abc", "1010", "aaccbababcbc"};
+        this.execute(input);
+    }
+
+    private void execute(String[] input) {
+        for (int i = 0; i < input.length; i++) {
+            String text = input[i];
+            System.out.println("Input: " + text);
+            System.out.println("Longest Palindromic Substring: " + this.longestPalindromicSubstringBetter(text));
+        }
+    }
+
+    private String longestPalindromicSubstringBetter(String text) {
+        int length = text.length();
+        if (length == 0) return StringUtils.EMPTY;
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < length; i++) {
+            // Odd Palindrome
+            int oddLen = this.getPalindromeLength(text, i-1, i+1);
+            // Even Palindrome
+            int evenLen = this.getPalindromeLength(text, i, i+1);
+            int len = Math.max(oddLen, evenLen);
+            if (len > end - start) {
+                start = i - (len-1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return text.substring(start, end+1);
+    }
+
+    private int getPalindromeLength(String text, int left, int right) {
+        while (left >= 0 && right < text.length()) {
+            if (text.charAt(left) != text.charAt(right)) break;
+            left--;
+            right++;
+        }
+        return right - left - 1;
     }
 
     private String longestPalindromicSubstringFail(String input) {
@@ -58,9 +87,9 @@ public class LongestPalindromicSubstring extends Problem {
                 left--;
                 right++;
             }
-            String palindorme = input.substring(left + 1, right);
-            if (palindorme.length() > output.length()) {
-                output = palindorme;
+            String palindrome = input.substring(left + 1, right);
+            if (palindrome.length() > output.length()) {
+                output = palindrome;
             }
             if (input.charAt(i-1) == input.charAt(i) && output.length() < 2) {
                 output = input.substring(i-1, i+1);

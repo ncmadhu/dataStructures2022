@@ -1,6 +1,8 @@
 import Common.Problem;
 import Problems.Array.*;
 import Problems.LinkedLists.*;
+import Problems.Scratch.Scratch;
+import Problems.String.*;
 import ReAttempt.Arrays.*;
 import ReAttempt.Arrays.Bitonic;
 import ReAttempt.Arrays.CeilingOfNumber;
@@ -34,7 +36,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("June 2022 MAAG");
         Problem problem;
-        problem = new MergeOverlappingIntervals();
+        problem = new LongestPalindromicSubstring();
         problem.run();
     }
 }
