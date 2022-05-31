@@ -36,7 +36,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("June 2022 MAAG");
         Problem problem;
-        problem = new LongestPeak();
+        problem = new Boggle();
         problem.run();
     }
 }

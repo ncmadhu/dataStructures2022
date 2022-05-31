@@ -46,7 +46,11 @@ public class MinDeletionsToMakePalindrome extends Problem {
             mem[i][i] = 1;
         }
         // Bottom Up Approach
-        // we analyze from the end like this [0 ...[n-2[n-1[n -n]]
+        // we analyze from the end like this
+        // [n-1 .. n]
+        // [n-2 .. n-1], [n-2 .. n]
+        // [n-3 .. n-2], [n-3 .. n-1], [n-3 .. n]
+        // [0 .. 1], [0 .. 2], .. , [0 .. n-1] ,[0 .. n]
         for (int start = length - 1; start >= 0; start--) {
             for (int end = start+1; end < length; end++) {
                 if (s.charAt(start) == s.charAt(end)) {
@@ -56,6 +60,9 @@ public class MinDeletionsToMakePalindrome extends Problem {
                 }
             }
         }
+        // mem[0][length-1] has the values for min deletions required for the whole string
+        // as per the above bottom up approach
+
         return length - mem[0][length-1];
     }
 }
