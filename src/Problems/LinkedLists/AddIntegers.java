@@ -14,13 +14,13 @@ public class AddIntegers extends Problem {
     }
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 2) {
-            LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
+            LinkedList<Integer> list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
             System.out.println("Num 1 : ");
             list1.displayLinkedList();
-            LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[i + 1]);
+            LinkedList<Integer> list2 = LinkedListUtils.generateLinkedListFromArray(input[i + 1]);
             System.out.println("Num 2 : ");
             list2.displayLinkedList();
-            LinkedList result = new LinkedList();
+            LinkedList<Integer> result = new LinkedList<Integer>();
             result.head = this.addIntegers(list1.head, list2.head);
             System.out.println("Sum: ");
             result.displayLinkedList();

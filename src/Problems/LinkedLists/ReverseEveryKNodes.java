@@ -15,7 +15,7 @@ public class ReverseEveryKNodes extends Problem {
     }
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 2) {
-            LinkedList list = LinkedListUtils.generateLinkedListFromArray(input[i]);
+            LinkedList<Integer> list = LinkedListUtils.generateLinkedListFromArray(input[i]);
             System.out.println("List : ");
             list.displayLinkedList();
             System.out.println("K : " + input[i+1][0]);

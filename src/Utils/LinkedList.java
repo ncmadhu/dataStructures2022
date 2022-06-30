@@ -2,7 +2,7 @@ package Utils;
 
 import java.util.*;
 
-public class LinkedList {
+public class LinkedList<B> {
     public LinkedListNode head;
 
     public LinkedList() {

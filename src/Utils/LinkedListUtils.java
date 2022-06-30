@@ -26,8 +26,8 @@ public class LinkedListUtils {
         return dll;
     }
 
-    public static LinkedList generateLinkedListFromArray(int[] arr) {
-        LinkedList list = new LinkedList();
+    public static LinkedList<Integer> generateLinkedListFromArray(int[] arr) {
+        LinkedList<Integer> list = new LinkedList<Integer>();
         for (int i = 0; i < arr.length; i++) {
             list.insertAtTail(arr[i]);
         }

@@ -21,17 +21,17 @@ public class KthSmallestInMSortedLists extends Problem {
     }
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 4) {
-            LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
+            LinkedList<Integer> list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
             System.out.println("List 1: ");
             list1.displayLinkedList();
-            LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[i+1]);
+            LinkedList<Integer> list2 = LinkedListUtils.generateLinkedListFromArray(input[i+1]);
             System.out.println("List 2: ");
             list2.displayLinkedList();
-            LinkedList list3 = LinkedListUtils.generateLinkedListFromArray(input[i+2]);
+            LinkedList<Integer> list3 = LinkedListUtils.generateLinkedListFromArray(input[i+2]);
             System.out.println("List 3: ");
             list3.displayLinkedList();
             System.out.println("K: " + input[i+3][0]);
-            LinkedList merged = new LinkedList();
+            LinkedList<Integer> merged = new LinkedList<Integer>();
             List<LinkedListNode> lists = new ArrayList<>();
             lists.add(list1.head);
             lists.add(list2.head);

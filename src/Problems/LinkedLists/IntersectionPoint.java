@@ -4,7 +4,6 @@ import Common.Problem;
 import Utils.LinkedList;
 import Utils.LinkedListNode;
 import Utils.LinkedListUtils;
-import Utils.SinglyLinkedList;
 
 public class IntersectionPoint extends Problem {
     @Override
@@ -17,10 +16,10 @@ public class IntersectionPoint extends Problem {
     }
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 2) {
-            LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
+            LinkedList<Integer> list1 = LinkedListUtils.generateLinkedListFromArray(input[i]);
             System.out.println("List 1: ");
             list1.displayLinkedList();
-            LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[i+1]);
+            LinkedList<Integer> list2 = LinkedListUtils.generateLinkedListFromArray(input[i+1]);
             System.out.println("List 2: ");
             list2.displayLinkedList();
             LinkedListNode node = this.intersect(list1.head, list2.head);

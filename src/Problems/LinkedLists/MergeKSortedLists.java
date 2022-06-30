@@ -21,13 +21,13 @@ public class MergeKSortedLists extends Problem {
     }
 
     private List<LinkedListNode> generateInput(int[][] input, int index) {
-        LinkedList list1 = LinkedListUtils.generateLinkedListFromArray(input[index]);
+        LinkedList<Integer> list1 = LinkedListUtils.generateLinkedListFromArray(input[index]);
         System.out.println("List 1: ");
         list1.displayLinkedList();
-        LinkedList list2 = LinkedListUtils.generateLinkedListFromArray(input[index+1]);
+        LinkedList<Integer> list2 = LinkedListUtils.generateLinkedListFromArray(input[index+1]);
         System.out.println("List 2: ");
         list2.displayLinkedList();
-        LinkedList list3 = LinkedListUtils.generateLinkedListFromArray(input[index+2]);
+        LinkedList<Integer> list3 = LinkedListUtils.generateLinkedListFromArray(input[index+2]);
         System.out.println("List 3: ");
         list3.displayLinkedList();
         List<LinkedListNode> lists = new ArrayList<>();
@@ -39,7 +39,7 @@ public class MergeKSortedLists extends Problem {
 
     private void execute(int[][] input) {
         for (int i = 0; i < input.length; i = i + 3) {
-            LinkedList merged = new LinkedList();
+            LinkedList<Integer> merged = new LinkedList<Integer>();
             merged.head = this.mergeKSortedLists(this.generateInput(input, i));
             System.out.println("Merged: ");
             merged.displayLinkedList();
